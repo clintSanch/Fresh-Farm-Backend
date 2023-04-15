@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({path: './.env'});
 import express from 'express';
 const cors = require('cors');
 const postgres = require('pg');
@@ -32,9 +32,9 @@ app.use(bodyParser.json());
 
 app.use(express.static(process.cwd()+'FreshFarm/dist/HybridFreshFarm'));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is listening on http://localhost:${PORT}`)
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+    console.log(`Server is listening on http://localhost:${port}`)
 })
 
 module.exports = app;

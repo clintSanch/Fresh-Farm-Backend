@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
-import dotenv from 'dotenv';
+require('dotenv').config({path: '/Fresh-Farm-Backend/.env'});
 
-dotenv.config();
+const pool = new Pool(process.env);
 
-const database_config = {};
+export default Pool;
