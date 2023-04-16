@@ -1,4 +1,4 @@
-require("dotenv").config({path: './.env'});
+require('dotenv').config({path: __dirname + `.env`});
 import express from 'express';
 const cors = require('cors');
 const postgres = require('pg');
@@ -7,6 +7,10 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.use(express.static(process.cwd()+'FreshFarm/dist/HybridFreshFarm'));
 
 const allowedListDomains = ['http://localhost:4200', 'http://localhost:4000'];
 const corsOptionsDelegate = (req, callback) => {
@@ -28,9 +32,9 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cors(corsOptionsDelegate));
 
-app.use(bodyParser.json());
-
-app.use(express.static(process.cwd()+'FreshFarm/dist/HybridFreshFarm'));
+app.get('/', (req, res) => {
+    res.sendFile(process.cwd()+'/FreshFarm/dist/HybridFreshFarm/index.html')
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
