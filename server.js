@@ -32,6 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors(corsOptionsDelegate));
 
+/**
+ * method express.static()
+ * is used to serve static files such as 
+ * images, CSS files, and JavaScript files
+ */
 app.use(express.static(process.cwd() + 'FreshFarm/dist/HybridFreshFarm'));
 
 app.get('/', (req, res) => {
