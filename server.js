@@ -1,4 +1,5 @@
-require('dotenv').config({path: __dirname + `.env`});
+require('dotenv').config({ path: __dirname + '.env'});
+
 import express from 'express';
 const cors = require('cors');
 const postgres = require('pg');
@@ -10,30 +11,31 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use(express.static(process.cwd()+'FreshFarm/dist/HybridFreshFarm'));
-
 const allowedListDomains = ['http://localhost:4200', 'http://localhost:4000'];
+
 const corsOptionsDelegate = (req, callback) => {
     let corsOptions;
 
     let isDomainAllowed = allowedListDomains.indexOf(req.header('origin')) !== -1;
 
-    if(isDomainAllowed){
-        corsOptions = {origin: true}
-    }else{
-        corsOptions = { origin: false}
+    if (isDomainAllowed) {
+        corsOptions = { origin: true }
+    } else {
+        corsOptions = { origin: false }
     }
 
     callback(null, corsOptions);
 }
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors(corsOptionsDelegate));
 
+app.use(express.static(process.cwd() + 'FreshFarm/dist/HybridFreshFarm'));
+
 app.get('/', (req, res) => {
-    res.sendFile(process.cwd()+'/FreshFarm/dist/HybridFreshFarm/index.html')
+    res.sendFile(process.cwd() + '/FreshFarm/dist/HybridFreshFarm/index.html')
 });
 
 const port = process.env.PORT || 5000;
