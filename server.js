@@ -3,7 +3,6 @@ require('dotenv').config({ path: __dirname + '.env'});
 import express from 'express';
 const cors = require('cors');
 const postgres = require('pg');
-const router = require('./app');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 
@@ -37,11 +36,14 @@ app.use(cors(corsOptionsDelegate));
  * is used to serve static files such as 
  * images, CSS files, and JavaScript files
  */
-app.use(express.static(process.cwd() + 'FreshFarm/dist/HybridFreshFarm'));
+app.use(express.static(process.cwd() + '/FreshFarm/dist/HybridFreshFarm/Browser'));
+app.use(express.static(process.cwd() + '/FreshFarm/Dist/HybridFreshFarm/server'));
 
-app.get('/', (req, res) => {
-    res.sendFile(process.cwd() + '/FreshFarm/dist/HybridFreshFarm/index.html')
+app.get('*', (req, res) => {
+    res.sendFile(__dirname, '/FreshFarm/dist/HybridFreshFarm/Browser/index.html')
 });
+
+//app.use('/', require('./src/Routes'))
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
