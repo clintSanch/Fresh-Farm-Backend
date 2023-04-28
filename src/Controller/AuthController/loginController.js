@@ -1,8 +1,6 @@
 
-const signIn = (req, res) => {
-    res.render("sign-in", {
-
-    })
+const signIn = async (req, res, next) => {
+    return res.json("sign-in", {})
 }
 
-module.exports = signIn;
+module.exports = {signIn}
