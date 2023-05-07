@@ -1,6 +1,7 @@
+const authModel = require('../../Model/Db/DbQueries/userQueries');
 
 const signIn = async (req, res, next) => {
-    return res.json("sign-in", {})
+    return res.send("sign-in", {})
 }
 
 module.exports = {signIn}

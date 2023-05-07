@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const serverSocket = require('socket.io');
 const jwt = require('jsonwebtoken');
-import { router } from './src/Routes/authRoutes';
+const router = require('./src/Routes/authRoutes');
 
 const app = express();
 
