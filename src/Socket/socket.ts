@@ -2,7 +2,9 @@ import { Socket } from "socket.io";
 
 export class Connection {
 
-    disconnectClient = (client: Socket) =>{
+    onlineClients = new Set();
+
+    disconnectClient = () =>{
 
     }
 
@@ -10,7 +12,14 @@ export class Connection {
 
     }
 
-    addClientOnline = (client: Socket) =>{
+    addClientOnline = (socket) =>{
 
+        console.info(`Client ${socket.id} has connected`);
+        this.onlineClients.add(socket.id);
+
+        socket.on("disconnect", ()=>{
+            this.onlineClients.delete(socket.id)
+            console.info(`Socket ${socket.id} has disconnected.`)
+        });
     }
 }

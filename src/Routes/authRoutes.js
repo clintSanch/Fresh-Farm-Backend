@@ -1,12 +1,12 @@
 
-import express from 'express';
+const express = require('express');
 const signIn = require('../Controller/AuthController/loginController');
 const signUp = require('../Controller/AuthController/registerContoller');
 const products = require('../Controller/ProductsController/productController');
 const homePage = require('../Controller/HomepageController/homeController');
 const asyncHandler = require('express-async-handler');
 
-import { app } from '../../server';
+const app = require('../../server');
 
 const router = express.Router();
 

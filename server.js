@@ -1,17 +1,27 @@
-require('dotenv').config({ path: __dirname + '.env'});
+if(process.env.NODE_ENVIRONMENT !== "production"){
+    require("dotenv").config();
+}
 
-import express from 'express';
+const express = require('express');
 const cors = require('cors');
 const postgres = require('pg');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
-const serverSocket = require('socket.io');
+const io = require('socket.io');
 const jwt = require('jsonwebtoken');
 const router = require('./src/Routes/authRoutes');
+const expressGraphql = require('express-graphql');
+const { graphqlHTTP } = expressGraphql;
+const schema = require('./src/Schemas/authSchema');
 
 const app = express();
 
-app.use(router);
+console.log(process.env.DB_DATABASE);
+
+
+const onlineClients = new Set();
+
+app.use('/', router);
 
 app.use(bodyParser.json());
 
@@ -36,7 +46,12 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cors(corsOptionsDelegate));
 
-const path = lazy(() => import('path'));
+app.use('/graphqlAPI', graphqlHTTP({
+  schema: schema,
+  graphiql: true
+}));
+
+const path = require('path');
 
 /**
  * Generating the JWT
@@ -53,10 +68,10 @@ const decodedToken = jwt.verify(token, 'secret-key');
  * is used to serve static files such as 
  * images, CSS files, and JavaScript files
  */
-app.use('/', express.static(path.join(__dirname, '/FreshFarm/dist/HybridFreshFarm/Browser')));
+app.use(express.static(path.join(__dirname, 'dist/HybridFreshFarm/Browser')));
 
 /**app.get('/', (req, res) => {
-    res.sendFile(__dirname, '/FreshFarm/dist/HybridFreshFarm/Browser/index.html')
+    res.sendFile(__dirname, 'dist/HybridFreshFarm/Browser/index.html')
 });*/
 
 //app.use('/', require('./src/Routes'))
@@ -82,4 +97,4 @@ app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`)
 })
 
-module.exports = {app};
+module.exports = app;
