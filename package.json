@@ -6,9 +6,10 @@
   "scripts": {
     "build": "",
     "start": "nodemon --exec babel-node server.js",
-    "dev": "nodemon server.js --watch Fresh-Farm-Backend",
-    "prod": "",
-    "test": "jest"
+    "start:test": "ENVIRONMENT=testing jest server.js",
+    "start:stage": "server.js",
+    "start:production": "server.js",
+    "dev": "nodemon server.js --watch Fresh-Farm-Backend"
   },
   "repository": {
     "type": "git",
