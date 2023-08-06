@@ -1,6 +1,6 @@
-if(process.env.NODE_ENVIRONMENT !== "production"){
-    require("dotenv").config();
-}
+import path from 'path';
+require("dotenv").config().parsed;
+const environmentConfig = require('./env.config');
 
 const express = require('express');
 const cors = require('cors');
@@ -16,7 +16,7 @@ const schema = require('./src/Schemas/authSchema');
 
 const app = express();
 
-console.log(process.env.DB_DATABASE);
+console.log(`./.env.${process.env.DB_DATABASE}`);
 
 
 const onlineClients = new Set();
@@ -92,7 +92,7 @@ app.get('/produce_details', async(_req, res) => {
    console.log(result)
 });
 
-const port = process.env.PORT || 5000;
+const port = `./.env.${process.env.PORT} || 5000`;
 app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`)
 })

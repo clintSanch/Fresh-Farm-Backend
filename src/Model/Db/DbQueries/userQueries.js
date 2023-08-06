@@ -5,7 +5,7 @@ const pool = require('../pool');
  * promises
  */
 
-export class AuthModel {
+class AuthModel {
 
     login = (data, (result, err) => {
 
@@ -18,3 +18,5 @@ export class AuthModel {
         
     })
 }
+
+module.exports = AuthModel;

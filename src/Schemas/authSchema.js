@@ -1,10 +1,10 @@
 const graphql = require('graphql');
-import {
+const {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLID,
     GraphQLBoolean, GraphQLString, GraphQLInt, GraphQLNonNull
-} from 'graphql';
+} = require('graphql');
 const User = require('../Model/User');
 
 

@@ -1,4 +1,4 @@
-export class User {
+class User {
     id = null;
     firstName = '';
     lastName = '';
@@ -15,3 +15,5 @@ export class User {
         this.password = password;
     }
 }
+
+module.exports = User;

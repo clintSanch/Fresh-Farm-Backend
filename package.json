@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "FreshFarm Nodejs Backend Services/Server",
   "main": "server.js",
+  "private": "true",
   "scripts": {
-    "build": "",
-    "start": "nodemon --exec babel-node server.js",
-    "start:test": "ENVIRONMENT=testing jest server.js",
-    "start:stage": "server.js",
-    "start:production": "server.js",
-    "dev": "nodemon server.js --watch Fresh-Farm-Backend"
+    "build": "webpack --config webpack.config.js",
+    "start": "set CONTEXT = development && nodemon --exec babel-node server.js",
+    "start:test": "set CONTEXT = testing && jest server.js --passWithNoTests",
+    "start:stage": "set CONTEXT = staging && node server.js",
+    "start:production": "set CONTEXT = production && node server.js"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,12 @@
     "express-async-handler": "^1.2.0",
     "express-graphql": "^0.12.0",
     "graphql": "^15.8.0",
+    "html-webpack-plugin": "^5.5.3",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.10.0",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
@@ -43,5 +46,11 @@
     "nodemon": "^2.0.22",
     "prettier": "^2.8.7",
     "ts-jest": "^29.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules"
+    ]
   }
 }
